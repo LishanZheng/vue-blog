@@ -1,35 +1,4 @@
 <template>
-<!--  <el-container >-->
-<!--    <el-header  id="header">-->
-<!--      <span>Hello, Gangster</span>-->
-<!--      <el-divider id="line"></el-divider>-->
-<!--    </el-header>-->
-<!--    <el-container>-->
-<!--      <el-aside width="150px">-->
-<!--        <el-menu-->
-<!--          text-color="#555"-->
-<!--          default-active="1"-->
-<!--          active-text-color="#690">-->
-<!--          <el-menu-item index="1">-->
-<!--            <template>-->
-<!--              <i class="el-icon-menu"></i>-->
-<!--              <span slot="title">导航一</span>-->
-<!--            </template>-->
-<!--          </el-menu-item>-->
-<!--          <el-menu-item index="2">-->
-<!--            <i class="el-icon-menu"></i>-->
-<!--            <span slot="title">导航二</span>-->
-<!--          </el-menu-item>-->
-<!--        </el-menu>-->
-<!--        <el-main id="main-page">-->
-<!--          <article v-html="value" >-->
-<!--          </article>-->
-<!--        </el-main>-->
-<!--      </el-aside>-->
-
-<!--    </el-container>-->
-
-<!--  </el-container>-->
   <el-container>
     <el-header  id="header">
       <span>Hello, Gangster</span>
@@ -40,22 +9,21 @@
       <el-menu
         text-color="#555"
         default-active="1"
-        active-text-color="#690">
-        <el-menu-item index="1">
+        active-text-color="#690" router>
+        <el-menu-item index="1" route="/file">
           <template>
             <i class="el-icon-menu"></i>
             <span slot="title">导航一</span>
           </template>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="2" route="/article">
           <i class="el-icon-menu"></i>
           <span slot="title">导航二</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
     <el-main id="main-page">
-      <article v-html="'<h1>hh</h1>'" >
-      </article>
+      <router-view></router-view>
     </el-main>
     </el-container>
     <el-footer id="footer">
@@ -76,7 +44,7 @@
 
 
   .el-main {
-    background-color: #E9EEF3;
+    /*background-color: #E9EEF3;*/
     text-align: center;
   }
   #header{
