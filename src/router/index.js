@@ -12,6 +12,7 @@ export default new Router({
       path: '/',
       name: 'MainPage',
       component: MainPage,
+      redirect: '/article',
       children:[
         {
           path: '/article',
