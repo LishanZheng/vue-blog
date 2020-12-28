@@ -8,17 +8,17 @@
       <el-aside width="150px">
       <el-menu
         text-color="#555"
-        default-active="1"
+        default-active="1" default-route="/file"
         active-text-color="#690" router>
-        <el-menu-item index="1" route="/file">
+        <el-menu-item index="1" route="/article">
           <template>
             <i class="el-icon-menu"></i>
-            <span slot="title">导航一</span>
+            <span slot="title">博客</span>
           </template>
         </el-menu-item>
-        <el-menu-item index="2" route="/article">
+        <el-menu-item index="2" route="/file">
           <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
+          <span slot="title">文件</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -27,7 +27,7 @@
     </el-main>
     </el-container>
     <el-footer id="footer">
-      © 2021 Design by across
+      © 2021 🦉design by across
     </el-footer>
   </el-container>
 </template>
@@ -57,11 +57,13 @@
   }
   #line{
     width: 80%;
-    margin-left: 10%;
+    margin-left: 150px;
   }
   #footer{
     text-align: center;
     font-size: 10px;
+    background-color: cornsilk;
+
   }
   #main-page{
     height: 1100px;
