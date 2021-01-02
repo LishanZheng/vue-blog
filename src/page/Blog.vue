@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <article v-html=md></article>
-    <article v-html=md></article>
+  <div style="margin-left: 25px">
     <article v-html=md></article>
   </div>
 </template>
