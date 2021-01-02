@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        name: "Article",
+        name: "Blog",
       data(){
           return {
             md: "<title>郑力煽-人脸检测网络概述</title></head>\n" +

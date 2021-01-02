@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Article from "../page/Article";
 import File from "../page/File";
-import SidebarItem from "../page/SidebarItem";
+import MainPage from "../page/MainPage";
+import Blog from "../page/Blog";
 
 Vue.use(Router)
 
@@ -10,14 +10,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SidebarItem',
-      component: SidebarItem,
-      redirect: '/article',
+      name: 'MainPage',
+      component: MainPage,
+      redirect: '/blog',
       children:[
         {
-          path: '/article',
-          name: 'Article',
-          component: Article
+          path: '/blog',
+          name: 'Blog',
+          component: Blog
         },
         {
           path: '/file',
