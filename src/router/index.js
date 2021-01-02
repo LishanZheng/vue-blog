@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import File from "../page/File";
 import MainPage from "../page/MainPage";
 import Blog from "../page/Blog";
+import Login from "../page/Login";
 
 Vue.use(Router)
 
@@ -23,8 +24,14 @@ export default new Router({
           path: '/file',
           name: 'File',
           component: File
+        },
+        {
+          path: '/login',
+          name: 'Login',
+          component: Login
         }
       ]
     },
+
   ]
 })
