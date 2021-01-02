@@ -1,28 +1,56 @@
 <template>
-  <el-form>
-    <el-form-item label="活动名称" prop="name">
-      <el-input></el-input>
-    </el-form-item>
-    <el-form-item label="活动性质" prop="type">
-      <el-checkbox-group>
-        <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-        <el-checkbox label="地推活动" name="type"></el-checkbox>
-        <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-        <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="特殊资源" prop="resource">
-      <el-radio-group>
-        <el-radio label="线上品牌商赞助"></el-radio>
-        <el-radio label="线下场地免费"></el-radio>
-      </el-radio-group>
-    </el-form-item>
-  </el-form>
+  <el-dialog
+    title="请登录"
+    :visible.sync="dialogVisible"
+    width="30%">
+    <el-form :label-position="labelPosition" label-width="80px">
+      <el-form-item label="账号">
+        <el-input v-model="account"></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input v-model="password" show-password></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleLogin">登 录</el-button>
+    </span>
+  </el-dialog>
 </template>
 
 <script>
 export default {
-name: "Login"
+  name: "Login",
+  data() {
+    return {
+      labelPosition: 'right',
+      account: null,
+      password: null,
+      dialogVisible: this.dialogVisibleProps
+    }
+  },
+  props: {
+    dialogVisibleProps: null
+  },
+  methods: {
+    handleLogin() {
+      this.dialogVisible = false
+      this.$emit("dialogChange", this.dialogVisible)
+      this.$notify.success({
+        title: '登录成功',
+        message: '你来啦',
+        showClose: true
+      });
+    }
+  },
+  watch: {
+    dialogVisibleProps: {
+      immediate: true, // 这句重要
+      handler(val) {
+        this.dialogVisible = val
+      },
+    },
+  }
 }
 </script>
 

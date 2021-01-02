@@ -12,6 +12,7 @@
             :default-active="this.$route.path"
             router>
             <el-menu-item v-for="(item, index) in menuMap" :key="index"
+                          style="font-size: 15px;font-family: 'Microsoft YaHei';"
                 :index=index>
               <i class="el-icon-location"></i>
               <span>{{item}}</span>
@@ -23,7 +24,7 @@
             <el-card style="width: 100%;height: 60px">
               <el-row>
                 <el-col :span="23">
-                  <el-breadcrumb separator="/" style="margin-left: 12px">
+                  <el-breadcrumb separator="/" style="margin-left: 12px;font-size: 16px;font-family: 'Microsoft YaHei'; ">
                     <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
                     <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
                   </el-breadcrumb>
@@ -49,33 +50,19 @@
       <el-footer id="footer" style="height: 20px">
         © 2021 🦉design by across
       </el-footer>
-      <el-dialog
-        title="请登录"
-        :visible.sync="dialogVisible"
-        width="30%">
-        <el-form :label-position="labelPosition" label-width="80px">
-          <el-form-item label="账号">
-            <el-input v-model="account"></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="password" show-password></el-input>
-          </el-form-item>
-        </el-form>
-        <span slot="footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleLogin">登 录</el-button>
-        </span>
-      </el-dialog>
+      <Login :dialogVisibleProps="dialogVisible" @dialogChange="handleDialog"></Login>
     </el-container>
   </div>
 </template>
 
 <script>
 
+  import Login from "./Login";
   export default {
     name: 'MainPage',
+    components: {Login},
     created() {
-      this.pickedIndex = this.menuMap['/blog']
+      this.pickedIndex = this.menuMap[this.$route.path]
     },
     data() {
       return {
@@ -97,14 +84,8 @@
       handleClick(key, keyPath) {
         this.pickedIndex = this.menuMap[key]
       },
-      handleLogin() {
-        console.log("login")
-        this.dialogVisible = false
-        this.$notify.success({
-          title: '登录成功',
-          message: '你来啦',
-          showClose: true
-        });
+      handleDialog(key) {
+        this.dialogVisible = key
       }
     }
   }
@@ -132,4 +113,5 @@
     position: relative;
     bottom: 10px;
   }
+
 </style>
