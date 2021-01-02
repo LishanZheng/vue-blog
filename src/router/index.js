@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from "../page/MainPage";
 import Article from "../page/Article";
 import File from "../page/File";
+import SidebarItem from "../page/SidebarItem";
 
 Vue.use(Router)
 
@@ -10,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MainPage',
-      component: MainPage,
+      name: 'SidebarItem',
+      component: SidebarItem,
       redirect: '/article',
       children:[
         {
