@@ -45,7 +45,7 @@ export default {
   },
   watch: {
     dialogVisibleProps: {
-      immediate: true, // 这句重要
+      immediate: true,
       handler(val) {
         this.dialogVisible = val
       },

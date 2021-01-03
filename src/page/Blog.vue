@@ -1,11 +1,16 @@
 <template>
   <div style="margin-left: 25px">
-    <el-card style="margin-bottom: 40px">
-      <article v-html=md[0].text></article>
-    </el-card>
-    <el-card>
-      <article v-html=md[0].text></article>
-    </el-card>
+    <el-row>
+      <el-col :span="19">
+        <el-card style="margin-bottom: 40px">
+          <article v-html=md[0].text></article>
+        </el-card>
+      </el-col>
+      <el-col :span="4" style="margin-left: 40px">
+        <el-card>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
