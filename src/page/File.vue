@@ -29,16 +29,16 @@
        </el-table-column>
        <el-table-column
          fixed
-         prop="fileName"
+         prop="filename"
          label="名称"
          width="360"
        >
          <template slot-scope="scope">
-           <el-link @click="handleSelectionPath(scope)" :underline="false" target="_blank" class="buttonText">{{scope.row.fileName}}</el-link>
+           <el-link @click="handleSelectionPath(scope)" :underline="false" target="_blank" class="buttonText">{{scope.row.filename}}</el-link>
          </template>
        </el-table-column>
        <el-table-column
-         prop="uploadDate"
+         prop="uploadTime"
          label="上传时间"
          width="270">
        </el-table-column>
@@ -64,9 +64,15 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
-        name: "File",
-        methods: {
+      name: "File",
+      created() {
+        let that = this
+        that.getFileList(that.path)
+      },
+      methods: {
           tableRowClassName(key) {
             if(this.selectionList.includes(key.row.id))
               return 'success-row';
@@ -79,52 +85,20 @@
             if(type === "文件夹"){
               that.selectFilePath.push({
                 id: that.selectFilePath.length,
-                pathName: key.row.fileName
+                pathName: key.row.filename
             })
-              this.tableData = this.tableData = [{
-                id: 1,
-                uploadDate: '2016-05-03',
-                fileName: '文件夹',
-                size: '10.2G',
-                type: '文件夹',
-                url: '',
-              }, {
-                id: 2,
-                uploadDate: '2016-05-03',
-                fileName: '图片',
-                size: '10.2G',
-                type: 'png',
-                url: 'www.baidu.com',
-              }]
+              that.path = that.path + '/' + key.row.filename
+              console.log(that.path)
+              that.tableData = that.getFileList(that.path)
             }
           },
           redirectSelectionPath(key) {
             for (let i = this.selectFilePath.length-1; i > key.id; i--) {
-               this.selectFilePath.splice(i)
+              this.selectFilePath.splice(i)
             }
-            console.log(this.selectFilePath)
-            this.tableData = [{
-              id: 1,
-              uploadDate: '2016-05-03',
-              fileName: '文件夹',
-              size: '10.2G',
-              type: '文件夹',
-              url: '',
-            }, {
-              id: 2,
-              uploadDate: '2016-05-03',
-              fileName: '图片',
-              size: '10.2G',
-              type: 'png',
-              url: 'www.baidu.com',
-            }, {
-              id: 3,
-              uploadDate: '2016-05-03',
-              fileName: '图片',
-              size: '10.2G',
-              type: 'png',
-              url: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3306555661,2157420471&fm=26&gp=0.jpg',
-            }]
+            let newPath = this.path.split('/', key.id + 1).join('/')
+            this.path = newPath
+            this.tableData = this.getFileList(newPath)
           },
           handleSelectionChange(val) {
             let selection = []
@@ -132,6 +106,14 @@
               selection.push(val[i].id)
             }
             this.selectionList = selection
+          },
+          getFileList(path) {
+            let that = this
+            axios.post('/file/get', {
+              path: path
+            }).then(function (response) {
+              that.tableData = response.data.data
+            })
           }
         },
         data() {
@@ -142,29 +124,9 @@
                 pathName:"主页"
               },
             ],
+            path: 'resources',
             selectionList: [],
-            tableData: [{
-              id: 1,
-              uploadDate: '2016-05-03',
-              fileName: '文件夹',
-              size: '10.2G',
-              type: '文件夹',
-              url: '',
-            }, {
-              id: 2,
-              uploadDate: '2016-05-03',
-              fileName: '图片',
-              size: '10.2G',
-              type: 'png',
-              url: 'www.baidu.com',
-            }, {
-              id: 3,
-              uploadDate: '2016-05-03',
-              fileName: '图片',
-              size: '10.2G',
-              type: 'png',
-              url: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3306555661,2157420471&fm=26&gp=0.jpg',
-            }]
+            tableData: []
           }
         }
     }
