@@ -82,7 +82,7 @@
           handleSelectionPath(key) {
             let type = key.row.type
             let that = this
-            if(type === "文件夹"){
+            if(type === "文件夹") {
               that.selectFilePath.push({
                 id: that.selectFilePath.length,
                 pathName: key.row.filename
@@ -93,12 +93,14 @@
             }
           },
           redirectSelectionPath(key) {
-            for (let i = this.selectFilePath.length-1; i > key.id; i--) {
-              this.selectFilePath.splice(i)
+            if(key.id !== (this.selectFilePath.length-1)) {
+              for (let i = this.selectFilePath.length - 1; i > key.id; i--) {
+                this.selectFilePath.splice(i)
+              }
+              let newPath = this.path.split('/', key.id + 1).join('/')
+              this.path = newPath
+              this.tableData = this.getFileList(newPath)
             }
-            let newPath = this.path.split('/', key.id + 1).join('/')
-            this.path = newPath
-            this.tableData = this.getFileList(newPath)
           },
           handleSelectionChange(val) {
             let selection = []

@@ -12,7 +12,7 @@
             :default-active="this.$route.path"
             router>
             <el-menu-item v-for="(item, index) in menuMap" :key="index"
-                          style="font-size: 15px;font-family: 'Microsoft YaHei';"
+                          style="font-size: 15px;"
                 :index=index>
               <i class="el-icon-location"></i>
               <span>{{item}}</span>
@@ -21,10 +21,10 @@
         </el-aside>
         <el-container>
           <el-header style="padding: 0">
-            <el-card style="width: 100%;height: 60px">
+            <el-card style="width: 100%;height: 60px;position: fixed;left: 160px">
               <el-row>
-                <el-col :span="23">
-                  <el-breadcrumb separator="/" style="margin-left: 12px;font-size: 16px;font-family: 'Microsoft YaHei'; ">
+                <el-col :span="23" >
+                  <el-breadcrumb separator="/" style="margin-left: 12px;font-size: 16px;">
                     <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
                     <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
                   </el-breadcrumb>
@@ -41,7 +41,7 @@
                 </el-col>
               </el-row>
             </el-card>
-            <el-card shadow="always">
+            <el-card shadow="always" style="position: fixed;left: 160px;top: 60px">
               <router-view></router-view>
             </el-card>
           </el-header>
