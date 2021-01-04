@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+import axios from 'axios'
+import qs from 'qs'
 import 'element-ui/lib/theme-chalk/index.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
@@ -12,6 +14,15 @@ import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+// Vue.prototype.$qs = qs
+// Vue.prototype.$axios = axios()
+axios.defaults.baseURL = 'http://127.0.0.1:8080'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.transformRequest = [
+  function (data) {
+  return qs.stringify(data)
+}]
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
