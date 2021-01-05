@@ -20,7 +20,10 @@ axios.defaults.baseURL = 'http://127.0.0.1:8080'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.transformRequest = [
   function (data) {
-  return qs.stringify(data)
+    if(data.__proto__ === FormData.prototype)
+      return data
+    else
+      return qs.stringify(data)
 }]
 
 /* eslint-disable no-new */

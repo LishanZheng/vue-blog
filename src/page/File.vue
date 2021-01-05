@@ -1,11 +1,32 @@
 <template>
  <div>
-   <el-card>
-     <div >
-       <el-button type="primary" style="background-color: #42b983">新建文件夹</el-button>
-       <el-button>上传</el-button>
-       <el-button type="danger">删除</el-button>
-       <el-button type="primary">全部下载</el-button>
+   <el-card style="width: 1320px">
+     <div>
+       <el-row>
+         <el-col :span="3">
+           <el-button type="primary" style="background-color: #42b983" @click="fileMkdir">新建文件夹</el-button>
+         </el-col>
+         <el-col :span="3">
+           <el-upload
+             action="action"
+             :http-request="uploadFile"
+             :before-upload="handlePreview"
+             multiple
+             :show-file-list=false
+             :limit="5"
+             :on-exceed="handleExceed"
+             :file-list="fileList">
+             <el-button type="primary">点击上传</el-button>
+             <div slot="tip" class="el-upload__tip">文件大小不超过50MB</div>
+           </el-upload>
+         </el-col>
+         <el-col :span="2" :offset="1">
+           <el-button type="danger">全部删除</el-button>
+         </el-col>
+         <el-col :span="2">
+           <el-button type="primary">全部下载</el-button>
+         </el-col>
+       </el-row>
        <el-breadcrumb separator-class="el-icon-arrow-right"  style="margin: 10px">
          <el-breadcrumb-item v-for="item in selectFilePath" :key=item.id>
              <el-link @click="redirectSelectionPath(item)" :underline="false" target="_blank">{{item.pathName}}</el-link>
@@ -65,6 +86,7 @@
 
 <script>
     import axios from "axios";
+    import ResponseCode from "../constant/ResponseCode";
 
     export default {
       name: "File",
@@ -72,7 +94,53 @@
         let that = this
         that.getFileList(that.path)
       },
+      data() {
+        return {
+          drawer: false,
+          selectFilePath: [
+            {
+              id: 0,
+              pathName:"主页"
+            },
+          ],
+          path: 'resources',
+          selectionList: [],
+          tableData: [],
+          fileList: []
+        }
+      },
       methods: {
+          fileMkdir() {
+            this.$prompt('请输入文件夹名称', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,}$/,
+              inputErrorMessage: '格式不正确'
+            }).then(({ value }) => {
+                axios.post('/file/mkdir', {
+                  path: this.path,
+                  filename: value
+                }).then((response) => {
+                    if (response.data.code === ResponseCode.SUCCESS) {
+                      this.$message({
+                        type: 'success',
+                        message: '创建成功'
+                      })
+                      this.getFileList(this.path)
+                    } else {
+                      this.$message({
+                        type: 'error',
+                        message: response.data.msg
+                      })
+                    }
+                  })
+                }).catch(() => {
+                    this.$message({
+                      type: 'info',
+                      message: '取消创建'
+                      });
+                    });
+          },
           tableRowClassName(key) {
             if(this.selectionList.includes(key.row.id))
               return 'success-row';
@@ -88,7 +156,6 @@
                 pathName: key.row.filename
             })
               that.path = that.path + '/' + key.row.filename
-              console.log(that.path)
               that.tableData = that.getFileList(that.path)
             }
           },
@@ -113,22 +180,34 @@
             let that = this
             axios.post('/file/get', {
               path: path
-            }).then(function (response) {
+            }).then((response) => {
+              if(response.data.code === this.RESPONCE_CODE.SUCCESS)
               that.tableData = response.data.data
             })
-          }
-        },
-        data() {
-          return {
-            selectFilePath: [
-              {
-                id: 0,
-                pathName:"主页"
-              },
-            ],
-            path: 'resources',
-            selectionList: [],
-            tableData: []
+          },
+          handlePreview(file) {
+            let size = file.size / 1024 / 1024
+            if(size > 50){
+              this.$message.error('上传文件大小不能超过 50MB!')
+              return false
+            }
+            return true
+          },
+          handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+          },
+          uploadFile(param) {
+            let params = new FormData()
+            params.append('files', param.file)
+            params.append('path', this.path)
+            axios.post('/file/upload', params).then((response) => {
+              if(response.data.code === this.RESPONCE_CODE.FAILED){
+                this.$message.error(response.msg)
+              } else {
+                this.$message.success("上传成功")
+                this.getFileList(this.path)
+              }
+              })
           }
         }
     }

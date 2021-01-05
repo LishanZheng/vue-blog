@@ -12,7 +12,7 @@
       </el-form-item>
     </el-form>
     <span slot="footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="handleLogin">取 消</el-button>
         <el-button type="primary" @click="handleLogin">登 录</el-button>
     </span>
   </el-dialog>
