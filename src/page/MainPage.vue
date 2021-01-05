@@ -23,15 +23,15 @@
           <el-header style="padding: 0">
             <el-card style="width: 100%;height: 60px;position: fixed;left: 160px">
               <el-row>
-                <el-col :span="21" >
+                <el-col :span="19" >
                   <el-breadcrumb separator="/" style="margin-left: 12px;font-size: 16px;">
                     <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
                     <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
                   </el-breadcrumb>
                 </el-col>
-                <el-col :span="1">
-                  <el-dropdown>
-                    <el-avatar id="avatar" size="large">admin</el-avatar>
+                <el-col :span="1" style="position: fixed;right: 50px;">
+                  <el-dropdown >
+                    <el-avatar id="avatar" size="large" >admin</el-avatar>
                     <el-dropdown-menu slot="dropdown" split-button=true >
                       <el-dropdown-item icon="el-icon-circle-plus" @click.native="dialogVisible = true">登录
                       </el-dropdown-item>
