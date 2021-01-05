@@ -21,10 +21,10 @@
            </el-upload>
          </el-col>
          <el-col :span="2" :offset="1">
-           <el-button type="danger">全部删除</el-button>
+           <el-button type="danger" @click="filesDelete">选中删除</el-button>
          </el-col>
          <el-col :span="2">
-           <el-button type="primary">全部下载</el-button>
+           <el-button type="primary">选中下载</el-button>
          </el-col>
        </el-row>
        <el-breadcrumb separator-class="el-icon-arrow-right"  style="margin: 10px">
@@ -77,7 +77,9 @@
          prop="operation"
          label="操作"
          width="300">
-         <el-button round type="danger" size="mini">删除</el-button>
+         <template slot-scope="scope">
+          <el-button type="danger" size="mini" @click="fileDelete(scope)">删除</el-button>
+         </template>
        </el-table-column>
      </el-table>
    </el-card>
@@ -106,109 +108,163 @@
           path: 'resources',
           selectionList: [],
           tableData: [],
-          fileList: []
+          fileList: [],
+          visible: false,
         }
       },
       methods: {
-          fileMkdir() {
-            this.$prompt('请输入文件夹名称', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,}$/,
-              inputErrorMessage: '格式不正确'
-            }).then(({ value }) => {
-                axios.post('/file/mkdir', {
-                  path: this.path,
-                  filename: value
-                }).then((response) => {
-                    if (response.data.code === ResponseCode.SUCCESS) {
-                      this.$message({
-                        type: 'success',
-                        message: '创建成功'
-                      })
-                      this.getFileList(this.path)
-                    } else {
-                      this.$message({
-                        type: 'error',
-                        message: response.data.msg
-                      })
-                    }
-                  })
-                }).catch(() => {
-                    this.$message({
-                      type: 'info',
-                      message: '取消创建'
-                      });
-                    });
-          },
-          tableRowClassName(key) {
-            if(this.selectionList.includes(key.row.id))
-              return 'success-row';
-            else
-              return ' '
-          },
-          handleSelectionPath(key) {
-            let type = key.row.type
-            let that = this
-            if(type === "文件夹") {
-              that.selectFilePath.push({
-                id: that.selectFilePath.length,
-                pathName: key.row.filename
-            })
-              that.path = that.path + '/' + key.row.filename
-              that.tableData = that.getFileList(that.path)
-            }
-          },
-          redirectSelectionPath(key) {
-            if(key.id !== (this.selectFilePath.length-1)) {
-              for (let i = this.selectFilePath.length - 1; i > key.id; i--) {
-                this.selectFilePath.splice(i)
-              }
-              let newPath = this.path.split('/', key.id + 1).join('/')
-              this.path = newPath
-              this.tableData = this.getFileList(newPath)
-            }
-          },
-          handleSelectionChange(val) {
-            let selection = []
-            for (let i = 0; i < val.length; i++) {
-              selection.push(val[i].id)
-            }
-            this.selectionList = selection
-          },
-          getFileList(path) {
-            let that = this
-            axios.post('/file/get', {
-              path: path
-            }).then((response) => {
-              if(response.data.code === this.RESPONCE_CODE.SUCCESS)
-              that.tableData = response.data.data
-            })
-          },
-          handlePreview(file) {
-            let size = file.size / 1024 / 1024
-            if(size > 50){
-              this.$message.error('上传文件大小不能超过 50MB!')
-              return false
-            }
-            return true
-          },
-          handleExceed(files, fileList) {
-            this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-          },
-          uploadFile(param) {
-            let params = new FormData()
-            params.append('files', param.file)
-            params.append('path', this.path)
-            axios.post('/file/upload', params).then((response) => {
-              if(response.data.code === this.RESPONCE_CODE.FAILED){
-                this.$message.error(response.msg)
-              } else {
-                this.$message.success("上传成功")
-                this.getFileList(this.path)
-              }
+        fileDelete(key) {
+          axios.post('file/delete', {
+            paths:[key.row.path]
+          }).then((response) => {
+            if(response.data.code === ResponseCode.SUCCESS){
+              this.$message({
+                type: 'success',
+                message: '删除成功'
               })
+              this.getFileList(this.path)
+            } else {
+              this.$message({
+                type: 'error',
+                message: response.data.msg
+              })
+            }
+          })
+        },
+        filesDelete() {
+          let paths = []
+          if(this.selectionList.length === 0){
+            this.$message({
+              type: 'error',
+              message: '还未选中文件'
+            })
+            return;
           }
+          for(let i = 0;i < this.selectionList.length;i++){
+            paths.push(this.selectionList[i].path)
+          }
+          axios.post('file/delete', {
+            paths:paths
+          }).then((response) => {
+            if(response.data.code === ResponseCode.SUCCESS){
+              this.$message({
+                type: 'success',
+                message: '删除成功'
+              })
+              this.getFileList(this.path)
+            } else {
+              this.$message({
+                type: 'error',
+                message: response.data.msg
+              })
+            }
+          })
+        },
+        fileMkdir() {
+          this.$prompt('请输入文件夹名称', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,}$/,
+            inputErrorMessage: '格式不正确'
+          }).then(({ value }) => {
+              axios.post('/file/mkdir', {
+                path: this.path,
+                filename: value
+              }).then((response) => {
+                  if (response.data.code === ResponseCode.SUCCESS) {
+                    this.$message({
+                      type: 'success',
+                      message: '创建成功'
+                    })
+                    this.getFileList(this.path)
+                  } else {
+                    this.$message({
+                      type: 'error',
+                      message: response.data.msg
+                    })
+                  }
+                })
+              }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '取消创建'
+                    });
+                  });
+        },
+        tableRowClassName(key) {
+          for (let i = 0;i < this.selectionList.length;i++){
+            if(this.selectionList[i].id === key.row.id)
+              return 'success-row';
+          }
+            return ' '
+        },
+        handleSelectionPath(key) {
+          let type = key.row.type
+          let that = this
+          if(type === "文件夹") {
+            that.selectFilePath.push({
+              id: that.selectFilePath.length,
+              pathName: key.row.filename
+            })
+            that.path = that.path + '/' + key.row.filename
+            that.tableData = that.getFileList(that.path)
+          } else {
+            window.open("/" + key.row.url, "_blank");
+          }
+        },
+        redirectSelectionPath(key) {
+          if(key.id !== (this.selectFilePath.length-1)) {
+            for (let i = this.selectFilePath.length - 1; i > key.id; i--) {
+              this.selectFilePath.splice(i)
+            }
+            let newPath = this.path.split('/', key.id + 1).join('/')
+            this.path = newPath
+            this.tableData = this.getFileList(newPath)
+          }
+        },
+        handleSelectionChange(val) {
+          let selection = []
+          for (let i = 0; i < val.length; i++) {
+            selection.push({
+              id: val[i].id,
+              path: val[i].path
+            })
+          }
+          this.selectionList = selection
+        },
+        getFileList(path) {
+          let that = this
+          axios.post('/file/get', {
+            path: path
+          }).then((response) => {
+            if(response.data.code === this.RESPONCE_CODE.SUCCESS)
+            that.tableData = response.data.data
+          })
+        },
+        handlePreview(file) {
+          let size = file.size / 1024 / 1024
+          if(size > 50){
+            this.$message.error('上传文件大小不能超过 50MB!')
+            return false
+          }
+          return true
+        },
+        handleExceed(files, fileList) {
+          this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        uploadFile(param) {
+          let params = new FormData()
+          params.append('files', param.file)
+          params.append('path', this.path)
+          axios.post('/file/upload', params).then((response) => {
+            if(response.data.code === this.RESPONCE_CODE.FAILED){
+              this.$message.error(response.msg)
+            } else {
+              this.$message.success("上传成功")
+              this.getFileList(this.path)
+            }
+            })
+        }
         }
     }
 </script>
