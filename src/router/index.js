@@ -4,8 +4,10 @@ import File from "../page/File";
 import MainPage from "../page/MainPage";
 import Blog from "../page/Blog";
 import Login from "../page/Login";
+import ResponseCode from "../constant/ResponseCode"
 
 Vue.use(Router)
+Vue.prototype.RESPONCE_CODE = ResponseCode
 
 export default new Router({
   routes: [

@@ -23,7 +23,7 @@
           <el-header style="padding: 0">
             <el-card style="width: 100%;height: 60px;position: fixed;left: 160px">
               <el-row>
-                <el-col :span="23" >
+                <el-col :span="21" >
                   <el-breadcrumb separator="/" style="margin-left: 12px;font-size: 16px;">
                     <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
                     <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
@@ -32,7 +32,7 @@
                 <el-col :span="1">
                   <el-dropdown>
                     <el-avatar id="avatar" size="large">admin</el-avatar>
-                    <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-menu slot="dropdown" split-button=true >
                       <el-dropdown-item icon="el-icon-circle-plus" @click.native="dialogVisible = true">登录
                       </el-dropdown-item>
                       <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>
@@ -41,16 +41,16 @@
                 </el-col>
               </el-row>
             </el-card>
-            <el-card shadow="always" style="position: fixed;left: 160px;top: 60px">
+            <el-card shadow="always" style="position: fixed;left: 160px;top: 60px;width: 100%">
               <router-view></router-view>
             </el-card>
           </el-header>
         </el-container>
       </el-container>
       <el-footer id="footer" style="height: 20px">
-        © 2021 🦉design by across
+        © 2021 🦉 design by across
       </el-footer>
-      <Login :dialogVisibleProps="dialogVisible" @dialogChange="handleDialog"></Login>
+      <login :dialogVisibleProps = "dialogVisible" @dialogChange="handleDialog"></login>
     </el-container>
   </div>
 </template>
@@ -86,7 +86,7 @@
       },
       handleDialog(key) {
         this.dialogVisible = key
-      }
+      },
     }
   }
 </script>
