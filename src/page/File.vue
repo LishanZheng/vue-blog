@@ -79,7 +79,9 @@
          width="300">
          <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="fileDelete(scope)">删除</el-button>
+           <el-button type="primary" size="mini" @click="fileDownload(scope)">下载</el-button>
          </template>
+
        </el-table-column>
      </el-table>
    </el-card>
@@ -113,10 +115,27 @@
         }
       },
       methods: {
-        fileDelete(key) {
-          axios.post('file/delete', {
+        fileDownload(key) {
+          axios.get('file/download', {
             paths:[key.row.path]
           }).then((response) => {
+            if(response.data.code === ResponseCode.SUCCESS){
+              this.$message({
+                type: 'success',
+                message: '下载成功'
+              })
+            } else {
+              this.$message({
+                type: 'error',
+                message: response.data.msg
+              })
+            }
+          })
+        },
+        fileDelete(key) {
+          axios.post('file/delete', this.$qs.stringify({
+            paths:[key.row.path]
+          })).then((response) => {
             if(response.data.code === ResponseCode.SUCCESS){
               this.$message({
                 type: 'success',
@@ -143,9 +162,9 @@
           for(let i = 0;i < this.selectionList.length;i++){
             paths.push(this.selectionList[i].path)
           }
-          axios.post('file/delete', {
+          axios.post('file/delete', this.$qs.stringify({
             paths:paths
-          }).then((response) => {
+          })).then((response) => {
             if(response.data.code === ResponseCode.SUCCESS){
               this.$message({
                 type: 'success',
@@ -167,10 +186,10 @@
             inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,}$/,
             inputErrorMessage: '格式不正确'
           }).then(({ value }) => {
-              axios.post('/file/mkdir', {
+              axios.post('/file/mkdir', this.$qs.stringify({
                 path: this.path,
                 filename: value
-              }).then((response) => {
+              })).then((response) => {
                   if (response.data.code === ResponseCode.SUCCESS) {
                     this.$message({
                       type: 'success',
@@ -234,9 +253,9 @@
         },
         getFileList(path) {
           let that = this
-          axios.post('/file/get', {
+          axios.post('/file/get', that.$qs.stringify({
             path: path
-          }).then((response) => {
+          })).then((response) => {
             if(response.data.code === this.RESPONCE_CODE.SUCCESS)
             that.tableData = response.data.data
           })
@@ -262,10 +281,10 @@
             } else {
               this.$message.success("上传成功")
               this.getFileList(this.path)
-            }
+             }
             })
         }
-        }
+      }
     }
 </script>
 
