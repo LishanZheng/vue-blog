@@ -1,7 +1,7 @@
 FROM node:10.23-alpine
 
 WORKDIR app
-COPY . app/
+COPY . .
 RUN npm install
 RUN npm run build
 
