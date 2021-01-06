@@ -4,7 +4,7 @@ ENV MY_HOME=/root
 RUN mkdir -p $MY_HOME
 WORKDIR $MY_HOME
 ADD package.json $MY_HOME
-RUN npm install
+RUN npm config set registry http://registry.npm.taobao.org/ && npm install
 ADD . $MY_HOME
 RUN npm run build
 
