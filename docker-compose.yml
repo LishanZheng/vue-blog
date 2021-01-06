@@ -9,5 +9,5 @@ services:
     ports:
       - 80:80
     network_mode: "host"
-    volumes:
-      - dist/ :/usr/share/nginx/html
+#    volumes:
+#      - dist/ :/usr/share/nginx/html
