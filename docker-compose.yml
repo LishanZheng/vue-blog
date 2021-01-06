@@ -1,0 +1,11 @@
+services:
+  vue-front:
+    build: .
+    image: vue-front
+    container_name: vue-front
+    restart: always
+    ports:
+      - 80:80
+    network_mode: "host"
+    volumes:
+      - ./dist/ :/usr/share/nginx/html
