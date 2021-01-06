@@ -277,7 +277,7 @@
           params.append('path', this.path)
           axios.post('/file/upload', params).then((response) => {
             if(response.data.code === this.RESPONCE_CODE.FAILED){
-              this.$message.error(response.msg)
+              this.$message.error(response.data.msg)
             } else {
               this.$message.success("上传成功")
               this.getFileList(this.path)
