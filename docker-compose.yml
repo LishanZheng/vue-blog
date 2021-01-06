@@ -10,4 +10,4 @@ services:
       - 80:80
     network_mode: "host"
     volumes:
-      - ./dist/ :/usr/share/nginx/html
+      - dist/ :/usr/share/nginx/html
