@@ -1,4 +1,4 @@
-FROM 10.23-stretch
+FROM node:10.23-alpine
 RUN npm install
 RUN npm run build
 
