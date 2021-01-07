@@ -23,9 +23,9 @@
          <el-col :span="2" :offset="1">
            <el-button type="danger" @click="filesDelete">选中删除</el-button>
          </el-col>
-         <el-col :span="2">
-           <el-button type="primary">选中下载</el-button>
-         </el-col>
+<!--         <el-col :span="2">-->
+<!--           <el-button type="primary" @click="filesDownload">选中下载</el-button>-->
+<!--         </el-col>-->
        </el-row>
        <el-breadcrumb separator-class="el-icon-arrow-right"  style="margin: 10px">
          <el-breadcrumb-item v-for="item in selectFilePath" :key=item.id>
@@ -81,7 +81,6 @@
           <el-button type="danger" size="mini" @click="fileDelete(scope)">删除</el-button>
            <el-button type="primary" size="mini" @click="fileDownload(scope)">下载</el-button>
          </template>
-
        </el-table-column>
      </el-table>
    </el-card>
@@ -119,22 +118,48 @@
           axios.post('file/download', this.$qs.stringify({
             paths:[key.row.path]
           })).then((response) => {
-            if(response.status === 200){
-              // this.$message({
-              //   type: 'success',
-              //   message: '下载成功'
-              // })
-              let url = window.URL.createObjectURL(new Blob([response.data]))
+            if(response.data.code === ResponseCode.SUCCESS){
               let eleLink = document.createElement('a')
-              eleLink.href = url
-              eleLink.download = key.row.filename + '.' + key.row.type
+              eleLink.href = axios.defaults.baseURL + '/' + key.row.url
               document.body.appendChild(eleLink)
               eleLink.click()
-              window.URL.revokeObjectURL(url)
             } else {
               this.$message({
                 type: 'error',
-                message: response
+                message: response.data.msg
+              })
+            }
+          })
+        },
+        filesDownload() {
+          let paths = []
+          if(this.selectionList.length === 0){
+            this.$message({
+              type: 'error',
+              message: '还未选中文件'
+            })
+            return;
+          }
+          for(let i = 0;i < this.selectionList.length;i++){
+            if(this.selectionList[i].type !== '文件夹')
+              paths.push(this.selectionList[i].path)
+          }
+          axios.post('file/download', this.$qs.stringify({
+            paths:paths
+          })).then((response) => {
+            if(response.data.code === ResponseCode.SUCCESS){
+              for(let i = 0;i < paths.length;i++){
+                console.log(paths[i])
+                let eleLink = document.createElement('a')
+                eleLink.href = axios.defaults.baseURL + '/' + paths[i]
+                document.body.appendChild(eleLink)
+                eleLink.click()
+                eleLink.removeAll()
+              }
+            } else {
+              this.$message({
+                type: 'error',
+                message: response.data.msg
               })
             }
           })
@@ -237,11 +262,8 @@
           } else {
             let eleLink = document.createElement('a')
             eleLink.href = axios.defaults.baseURL + '/' + key.row.url
-            console.log(eleLink.href)
             document.body.appendChild(eleLink)
             eleLink.click()
-
-            // window.URL.revokeObjectURL(eleLink)
           }
         },
         redirectSelectionPath(key) {
@@ -259,7 +281,8 @@
           for (let i = 0; i < val.length; i++) {
             selection.push({
               id: val[i].id,
-              path: val[i].path
+              path: val[i].path,
+              type: val[i].type
             })
           }
           this.selectionList = selection
