@@ -237,9 +237,10 @@
           } else {
             let eleLink = document.createElement('a')
             eleLink.href = axios.defaults.baseURL + '/' + key.row.url
+            console.log(eleLink.href)
             document.body.appendChild(eleLink)
             eleLink.click()
-            window.URL.revokeObjectURL(url)
+            // window.URL.revokeObjectURL(eleLink)
           }
         },
         redirectSelectionPath(key) {
