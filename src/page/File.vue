@@ -240,6 +240,7 @@
             console.log(eleLink.href)
             document.body.appendChild(eleLink)
             eleLink.click()
+
             // window.URL.revokeObjectURL(eleLink)
           }
         },
