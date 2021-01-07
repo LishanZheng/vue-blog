@@ -116,18 +116,25 @@
       },
       methods: {
         fileDownload(key) {
-          axios.get('file/download', {
+          axios.post('file/download', this.$qs.stringify({
             paths:[key.row.path]
-          }).then((response) => {
-            if(response.data.code === ResponseCode.SUCCESS){
-              this.$message({
-                type: 'success',
-                message: '下载成功'
-              })
+          })).then((response) => {
+            if(response.status === 200){
+              // this.$message({
+              //   type: 'success',
+              //   message: '下载成功'
+              // })
+              let url = window.URL.createObjectURL(new Blob([response.data]))
+              let eleLink = document.createElement('a')
+              eleLink.href = url
+              eleLink.download = key.row.filename + '.' + key.row.type
+              document.body.appendChild(eleLink)
+              eleLink.click()
+              window.URL.revokeObjectURL(url)
             } else {
               this.$message({
                 type: 'error',
-                message: response.data.msg
+                message: response
               })
             }
           })
@@ -228,7 +235,11 @@
             that.path = that.path + '/' + key.row.filename
             that.tableData = that.getFileList(that.path)
           } else {
-            window.open("/" + key.row.url, "_blank");
+            let eleLink = document.createElement('a')
+            eleLink.href = axios.defaults.baseURL + '/' + key.row.url
+            document.body.appendChild(eleLink)
+            eleLink.click()
+            window.URL.revokeObjectURL(url)
           }
         },
         redirectSelectionPath(key) {

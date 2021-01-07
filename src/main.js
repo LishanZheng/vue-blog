@@ -15,8 +15,8 @@ Vue.use(mavonEditor)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.prototype.$qs = qs
-// axios.defaults.baseURL = 'http://127.0.0.1:8080'
-axios.defaults.baseURL = 'http://121.196.174.189:8080'
+axios.defaults.baseURL = 'http://127.0.0.1:8080'
+// axios.defaults.baseURL = 'http://121.196.174.189:8080'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 /* eslint-disable no-new */
