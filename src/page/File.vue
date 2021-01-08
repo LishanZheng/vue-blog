@@ -79,7 +79,7 @@
          width="300">
          <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="fileDelete(scope)">删除</el-button>
-           <el-button type="primary" size="mini" @click="fileDownload(scope)">下载</el-button>
+           <el-button type="primary" v-if="showDownload(scope)" size="mini" @click="fileDownload(scope)">下载</el-button>
          </template>
        </el-table-column>
      </el-table>
@@ -114,6 +114,11 @@
         }
       },
       methods: {
+        showDownload(key) {
+          if(key.row.type === "文件夹")
+            return false
+          return true
+        },
         fileDownload(key) {
           axios.post('file/download', this.$qs.stringify({
             paths:[key.row.path]

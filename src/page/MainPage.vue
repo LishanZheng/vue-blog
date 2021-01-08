@@ -49,6 +49,7 @@
       </el-container>
       <el-footer id="footer" style="height: 20px">
         © 2021 🦉 design by across
+        <a href="http://beian.miit.gov.cn/"> 闽ICP备2021000449号</a>
       </el-footer>
       <login :dialogVisibleProps = "dialogVisible" @dialogChange="handleDialog"></login>
     </el-container>
