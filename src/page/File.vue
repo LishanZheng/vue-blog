@@ -13,7 +13,7 @@
              :before-upload="handlePreview"
              multiple
              :show-file-list=false
-             :limit="5"
+             :limit="20"
              :on-exceed="handleExceed"
              :file-list="fileList">
              <el-button type="primary">点击上传</el-button>
@@ -94,8 +94,8 @@
     export default {
       name: "File",
       created() {
-        let that = this
-        that.getFileList(that.path)
+        this.getFileList(this.path)
+        this.$emit('pageUrl', '/file')
       },
       data() {
         return {

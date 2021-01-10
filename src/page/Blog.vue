@@ -1,12 +1,23 @@
 <template>
-  <div style="margin-left: 25px">
+  <div style="margin-left: 10px;">
     <el-row>
-      <el-col :span="19">
-        <el-card style="margin-bottom: 40px">
-          <article v-html=md[0].text></article>
+      <el-col :span="16">
+        <el-card style="width:100%;min-width: 850px;">
+          <div v-for="item in textList" v-bind:key="item.id" style="padding: 30px 0 10px 10px">
+            <router-link :to="'/article/'+item.id" style="margin-left: 20px;font-size: 22px">*文章名字*</router-link>
+            <article v-html=item.text  style="padding: 10px 5px 0 40px"></article>
+            <el-divider content-position="right" id="divider">{{item.author}}</el-divider>
+          </div>
+          <div class="block" style="text-align: center;margin-top: 80px;">
+            <el-divider><i class="el-icon-data-board"></i></el-divider>
+            <el-pagination
+              layout="prev, pager, next"
+              :total="50">
+            </el-pagination>
+          </div>
         </el-card>
       </el-col>
-      <el-col :span="4" style="margin-left: 40px">
+      <el-col :span="4" style="margin-left: 40px;">
         <el-card>
         </el-card>
       </el-col>
@@ -16,9 +27,33 @@
 
 <script>
     export default {
-        name: "Blog",
-      data(){
+      name: "Blog",
+      created() {
+        this.$emit('pageUrl', '/blog')
+      },
+      methods: {
+      },
+      data() {
           return {
+            textList:[
+              {id:1,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
+                  "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
+              {id:2,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
+                  "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
+              {id:3,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
+                  "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
+              {id:4,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
+                  "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
+
+            ],
             md: [{text: "<title>郑力煽-人脸检测网络概述</title></head>\n" +
         "<body><h2>人脸检测 + 关键点检测</h2>\n" +
         "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
@@ -36,7 +71,8 @@
         "<h2>第一层 P-Net</h2>\n" +
         "<p>Proposal Network</p>\n" +
         "<h5>基本思想：使用较为浅层、较为简单的CNN网络快速生成人脸候选窗口</h5>\n" +
-        "<h5>结构：12x12x3 输入层、3个卷积层、3个输出层</h5>"}]
+        "<h5>结构：12x12x3 输入层、3个卷积层、3个输出层</h5>"}],
+            text01: "<body><h2>人脸检测 + 关键点检测</h2>\n"
           }
       },
     }
@@ -44,5 +80,17 @@
 </script>
 
 <style scoped>
+  #divider{
+    margin: 8px 0;
+    background: 0 0;
+    border-top: 1px dashed #e8eaec;
+  }
 
+  .router-link-active {
+    text-decoration: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
 </style>

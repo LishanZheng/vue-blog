@@ -5,6 +5,7 @@ import MainPage from "../page/MainPage";
 import Blog from "../page/Blog";
 import Login from "../page/Login";
 import ResponseCode from "../constant/ResponseCode"
+import Article from "../page/Article";
 
 Vue.use(Router)
 Vue.prototype.RESPONCE_CODE = ResponseCode
@@ -34,6 +35,11 @@ export default new Router({
         }
       ]
     },
+    {
+      path: '/article/:id',
+      name: 'Article',
+      component: Article
+    }
 
   ]
 })
