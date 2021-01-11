@@ -8,7 +8,7 @@
             background-color="#00314F"
             active-text-color="#538CFF"
             text-color="#ffffff"
-            style="height: 100vh;width:160px;position: fixed"
+            style="height: auto;width: 160px"
             :default-active="this.$route.path"
             router>
             <el-menu-item v-for="(item, index) in menuMap" :key="index"
@@ -21,7 +21,7 @@
         </el-aside>
         <el-container>
           <el-header>
-            <el-card style="height: 60px;position: absolute;left: 160px;width: 100vw">
+            <el-card style="height: 60px;position: absolute;left: 160px;width: 100vw;" shadow="never">
               <el-row>
                 <el-col :span="19" >
                   <el-breadcrumb separator=">" style="margin-left: 12px;font-size: 16px;">
@@ -29,19 +29,19 @@
                     <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
                   </el-breadcrumb>
                 </el-col>
-                <el-col :span="1" >
-                  <el-dropdown >
-                    <el-avatar id="avatar" size="large" >admin</el-avatar>
-                    <el-dropdown-menu slot="dropdown" split-button=true >
-                      <el-dropdown-item icon="el-icon-circle-plus" @click.native="dialogVisible = true">登录
-                      </el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </el-dropdown>
-                </el-col>
+<!--                <el-col :span="1" >-->
+<!--                  <el-dropdown >-->
+<!--                    <el-avatar id="avatar" size="large" >admin</el-avatar>-->
+<!--                    <el-dropdown-menu slot="dropdown" split-button=true >-->
+<!--                      <el-dropdown-item icon="el-icon-circle-plus" @click.native="dialogVisible = true">登录-->
+<!--                      </el-dropdown-item>-->
+<!--                      <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>-->
+<!--                    </el-dropdown-menu>-->
+<!--                  </el-dropdown>-->
+<!--                </el-col>-->
               </el-row>
             </el-card>
-            <el-card shadow="always" style="margin-top: 60px;margin-left: -160px;width: 100vw">
+            <el-card shadow="never" style="margin-top: 60px;margin-left: -160px;width: 100vw" >
               <router-view @pageUrl="redirectMainPage"></router-view>
             </el-card>
           </el-header>
@@ -106,9 +106,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 99%;
     height: 100%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
   }
 
 

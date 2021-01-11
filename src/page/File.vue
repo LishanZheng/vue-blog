@@ -1,6 +1,6 @@
 <template>
  <div>
-   <el-card style="width: 1320px">
+   <el-card style="min-width: 1000px;max-width: 1320px">
      <div>
        <el-row>
          <el-col :span="3">

@@ -2,23 +2,34 @@
   <div style="margin-left: 10px;">
     <el-row>
       <el-col :span="16">
-        <el-card style="width:100%;min-width: 850px;">
-          <div v-for="item in textList" v-bind:key="item.id" style="padding: 30px 0 10px 10px">
-            <router-link :to="'/article/'+item.id" style="margin-left: 20px;font-size: 22px">*文章名字*</router-link>
-            <article v-html=item.text  style="padding: 10px 5px 0 40px"></article>
-            <el-divider content-position="right" id="divider">{{item.author}}</el-divider>
-          </div>
+        <div style="margin-left: 120px">
+          <el-card v-for="item in textList" v-bind:key="item.id" style="width: 800px;margin-bottom: 25px;padding-bottom: 20px">
+            <div style="text-align: center;margin-top: 30px;">
+              <router-link :to="'/article/'+item.id" id="title">{{item.title}}</router-link>
+            </div>
+            <div style="text-align: center; margin: 10px 0 35px 0">
+              <span style="font-size: 12px;color: steelblue">「 发表时间：{{item.time}} 」 「 类别：{{item.sort}} 」 </span>
+            </div>
+            <article v-html=item.text  style="padding-left:40px;color: #303133;font-size: 20px"></article>
+            <div style="text-align: center;margin-top: 30px;margin-bottom: 20px">
+              <el-button type="primary" plain size="small" @click="articleDetail(item.id)">
+                阅读全文 >
+              </el-button>
+            </div>
+            <el-divider content-position="right" id="divider" style="background-color: black;" >{{item.author}}</el-divider>
+          </el-card>
           <div class="block" style="text-align: center;margin-top: 80px;">
-            <el-divider><i class="el-icon-data-board"></i></el-divider>
+            <el-divider></el-divider>
             <el-pagination
               layout="prev, pager, next"
               :total="50">
             </el-pagination>
           </div>
-        </el-card>
+        </div>
       </el-col>
-      <el-col :span="4" style="margin-left: 40px;">
+      <el-col :span="7" :offset="1"  style="width: 200px;overflow:auto">
         <el-card>
+          123
         </el-card>
       </el-col>
     </el-row>
@@ -32,26 +43,29 @@
         this.$emit('pageUrl', '/blog')
       },
       methods: {
+        articleDetail(key) {
+          this.$router.push({path: '/article/' + key})
+        }
       },
       data() {
           return {
             textList:[
-              {id:1,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+              {id:1,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:"<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
-                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
-              {id:2,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n"},
+              {id:2,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
-                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
-              {id:3,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n"},
+              {id:3,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
-                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
-              {id:4,title:"人脸检测",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+                  "<p>其它使用WIDER FACE数据集</p>\n"},
+              {id:4,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
-                  "<p>其它使用WIDER FACE数据集</p>\n" + "...."},
+                  "<p>其它使用WIDER FACE数据集</p>\n"},
 
             ],
             md: [{text: "<title>郑力煽-人脸检测网络概述</title></head>\n" +
@@ -86,11 +100,27 @@
     border-top: 1px dashed #e8eaec;
   }
 
-  .router-link-active {
+  a {
     text-decoration: none;
   }
 
-  a {
-    text-decoration: none;
+  .el-button {
+    color: #8c939d;
+    background-color: #f0f7ff;
+    border-color: #e8eaec;
+  }
+  .el-button:hover {
+    background-color: #3a8ee6;
+    border-color: #e8eaec;
+  }
+  .el-button:focus {
+    background-color: black;
+    border-color: #e8eaec;
+  }
+  #title {
+    font-size: 32px;
+    color: black;
+    font-family:"华文细黑",monospace;
+    border-bottom:2px solid #f5f7fa;
   }
 </style>
