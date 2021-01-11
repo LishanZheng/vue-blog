@@ -5,9 +5,8 @@
         <el-aside >
           <el-menu
             @select="handleClick"
-            background-color="#00314F"
             active-text-color="#538CFF"
-            text-color="#ffffff"
+            text-color="#000000"
             style="height: auto;width: 160px"
             :default-active="this.$route.path"
             router>
@@ -21,7 +20,7 @@
         </el-aside>
         <el-container>
           <el-header>
-            <el-card style="height: 60px;position: absolute;left: 160px;width: 100vw;" shadow="never">
+            <el-card style="height: 60px;position: absolute;left: 160px;width: 100vw;background-color: rgba(235,243,255,0.45);" shadow="never" >
               <el-row>
                 <el-col :span="19" >
                   <el-breadcrumb separator=">" style="margin-left: 12px;font-size: 16px;">
@@ -41,7 +40,7 @@
 <!--                </el-col>-->
               </el-row>
             </el-card>
-            <el-card shadow="never" style="margin-top: 60px;margin-left: -160px;width: 100vw" >
+            <el-card shadow="never" style="margin-top: 60px;margin-left: -160px;width: 100vw;background-color: rgba(241,247,254,0.2);" >
               <router-view @pageUrl="redirectMainPage"></router-view>
             </el-card>
           </el-header>
@@ -107,7 +106,6 @@
     top: 0;
     left: 0;
     height: 100%;
-    /*overflow-x: hidden;*/
   }
 
 

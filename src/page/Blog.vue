@@ -1,9 +1,9 @@
 <template>
   <div style="margin-left: 10px;">
-    <el-row>
-      <el-col :span="16">
-        <div style="margin-left: 120px">
-          <el-card v-for="item in textList" v-bind:key="item.id" style="width: 800px;margin-bottom: 25px;padding-bottom: 20px">
+    <el-row :gutter="2">
+      <el-col :span="14" :offset="2">
+        <div >
+          <el-card v-for="item in textList" v-bind:key="item.id" style="min-width: 430px;margin-bottom: 25px;padding-bottom: 20px">
             <div style="text-align: center;margin-top: 30px;">
               <router-link :to="'/article/'+item.id" id="title">{{item.title}}</router-link>
             </div>
@@ -27,9 +27,24 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="7" :offset="1"  style="width: 200px;overflow:auto">
-        <el-card>
-          123
+      <el-col :span="5" :offset="1"  style="width: 260px;overflow: hidden">
+        <el-card style="background-color: rgba(195,220,255,0.35);border: 1px solid #72767b">
+          <div style="text-align: center;">
+            <el-avatar style="height: 100px;width: 100px;background-color: white;border: 3px solid #82848a"
+                       src="http://121.196.174.189:8080/static/resources/7.png">
+            </el-avatar>
+            <h3 style="font-family: '华文细黑', monospace;margin: 10px 0 10px 0;font-size: 20px">Across</h3>
+            <span style="font-family: '微软雅黑', serif;font-size: 13px;">神秘的帽子君，果然什么介绍也没有. 但还是留下了一些奇怪的地址。</span>
+            <div style="margin-top: 30px">
+              <div><a href="https://github.com/LishanZheng">Github</a></div>
+<!--              <a href="https://blog.xuewen.me/">@xuewen</a>-->
+            </div>
+            <div>
+<!--              1|2|3-->
+            </div>
+
+
+          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -50,19 +65,19 @@
       data() {
           return {
             textList:[
-              {id:1,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:"<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+              {id:1,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:"<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
                   "<p>其它使用WIDER FACE数据集</p>\n"},
-              {id:2,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+              {id:2,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
                   "<p>其它使用WIDER FACE数据集</p>\n"},
-              {id:3,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+              {id:3,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
                   "<p>其它使用WIDER FACE数据集</p>\n"},
-              {id:4,title:"人脸检测",time:"2020-07-26",sort:"java",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
+              {id:4,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
                   "<p>其它使用WIDER FACE数据集</p>\n"},
