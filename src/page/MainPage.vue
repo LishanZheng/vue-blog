@@ -4,26 +4,30 @@
       <el-container>
         <el-aside style="width: 160px;">
           <el-menu
-            @select="handleClick"
             active-text-color="#538CFF"
             text-color="#000000"
             style="height: auto;"
             :default-active="this.$route.path"
             router>
-            <el-menu-item v-for="(item, index) in menuMap" :key="index"
+            <el-menu-item v-for="(item) in navList"
+                          :key="item.name"
                           style="font-size: 15px;height:65px"
-                :index=index>
-              <i :class=getClass(index)></i>
-              <span>{{item}}</span>
+                          :index=item.url>
+              <i :class=item.icon></i>
+              <span> {{item.name}} </span>
             </el-menu-item>
           </el-menu>
         </el-aside>
         <el-container>
           <el-header style="padding: 0;margin-left: -1px">
             <el-card style="height: 60px;padding-left:13px;background-color: rgba(235,243,255,0.45);" shadow="never" >
-              <el-breadcrumb separator=">" style="  width:90vh;font-size: 16px;">
+              <el-breadcrumb separator=">" style="width:90vh;font-size: 16px;">
                 <el-breadcrumb-item :to="{path: '/'}">主页</el-breadcrumb-item>
-                <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
+                <el-breadcrumb-item v-for="(item, index) in breadCrumbList"
+                                    :key="index"
+                                    :to="{path: item.url}">
+                  {{item.name}}
+                </el-breadcrumb-item>
               </el-breadcrumb>
               <el-row>
                 <el-col >
@@ -58,23 +62,18 @@
 <script>
 
   import Login from "./Login";
+  import config from "../constant/PageConfig";
+
   export default {
     name: 'MainPage',
     components: {Login},
     created() {
-      this.pickedIndex = this.menuMap[this.$route.path]
+      this.getNavList()
     },
     data() {
       return {
-        menuMap:{
-          "/blog":"博客",
-          "/file":"文件",
-        },
-        iconMap:{
-          "/blog":"el-icon-user",
-          "/file":"el-icon-cloudy"
-        },
-        pickedIndex: null,
+        navList:[],
+        breadCrumbList: [],
         dialogVisible: false,
         labelPosition: 'right',
         account: null,
@@ -82,20 +81,31 @@
         }
     },
     methods: {
-      getClass(index) {
-        return this.iconMap[index]
+      handleBread(data) {
       },
-      handleTest() {
-        console.log("test")
-      },
-      handleClick(key, keyPath) {
-        this.pickedIndex = this.menuMap[key]
+      getNavList() {
+        // 获取导航菜单的列表 以数组形式[[*name*, *url*, *icon*], [……]]
+        let navList = [];
+        for (let i = 0; i < config.NAV_LIST.length; i++) {
+          navList.push({
+            name: config.NAV_LIST[i].name,
+            url: config.NAV_LIST[i].url,
+            icon: config.NAV_LIST[i].icon})
+        }
+        this.navList = navList
       },
       handleDialog(key) {
         this.dialogVisible = key
       },
       redirectMainPage(data) {
-        this.pickedIndex = this.menuMap[data]
+        let pathList = []
+        for (let i = 0; i < data.length; i++) {
+          pathList.push({
+            name: data[i].name,
+            url: data[i].url
+          })
+        }
+        this.breadCrumbList = pathList
       },
     }
   }

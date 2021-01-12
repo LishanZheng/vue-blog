@@ -90,12 +90,17 @@
 <script>
     import axios from "axios";
     import ResponseCode from "../constant/ResponseCode";
+    import config from "../constant/PageConfig";
 
     export default {
       name: "File",
       created() {
         this.getFileList(this.path)
-        this.$emit('pageUrl', '/file')
+        this.$emit('pageUrl', [
+          {
+            name: config.NAV2_NAME,
+            path: config.NAV2_URL
+          }])
       },
       data() {
         return {
