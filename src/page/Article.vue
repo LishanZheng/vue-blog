@@ -32,12 +32,21 @@
 
 <script>
   import axios from "axios";
+  import config from "../constant/PageConfig";
 
   export default {
         name: "Article",
         created() {
-          this.pageId = this.$route.params.id
           this.getArticle()
+          this.$emit('pageUrl', [
+            {
+              name: config.NAV_LIST[0].name,
+              path: config.NAV_LIST[0].path,
+            },
+            {
+              name: this.$route.params.id,
+              path: this.$route.path
+            }])
         },
         methods: {
           getArticle() {
@@ -49,7 +58,6 @@
         },
         data() {
           return {
-            pageId: null,
             htmlMD: null,
           }
         }

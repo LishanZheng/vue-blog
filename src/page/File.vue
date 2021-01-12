@@ -98,8 +98,8 @@
         this.getFileList(this.path)
         this.$emit('pageUrl', [
           {
-            name: config.NAV2_NAME,
-            path: config.NAV2_URL
+            name: config.NAV_LIST[1].name,
+            path: config.NAV_LIST[1].path
           }])
       },
       data() {

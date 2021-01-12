@@ -60,21 +60,22 @@
       created() {
         this.$emit('pageUrl', [
           {
-            name: config.NAV1_NAME,
-            path: config.NAV1_URL
+            name: config.NAV_LIST[0].name,
+            path: config.NAV_LIST[0].path,
           }])
       },
       methods: {
         articleDetail(data) {
-          this.$router.push({path: config.NAV1_1_URL + '/' + data.id})
+          let newPath = config.NAV_LIST[0].children[0].path + '/' + data.id
+          this.$router.push ({ path: newPath });
           this.$emit('pageUrl', [
             {
-              name: config.NAV1_NAME,
-              path: config.NAV1_URL,
+              name: config.NAV_LIST[0].name,
+              path: config.NAV_LIST[0].path
             },
             {
-              name: config.NAV1_NAME,
-              path: config.NAV1_1_URL + '/' + data.id
+              name: data.title,
+              path: newPath
             },
           ])
         }

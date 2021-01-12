@@ -12,7 +12,7 @@
             <el-menu-item v-for="(item) in navList"
                           :key="item.name"
                           style="font-size: 15px;height:65px"
-                          :index=item.url>
+                          :index=item.path>
               <i :class=item.icon></i>
               <span> {{item.name}} </span>
             </el-menu-item>
@@ -25,7 +25,7 @@
                 <el-breadcrumb-item :to="{path: '/'}">主页</el-breadcrumb-item>
                 <el-breadcrumb-item v-for="(item, index) in breadCrumbList"
                                     :key="index"
-                                    :to="{path: item.url}">
+                                    :to="{path: item.path}">
                   {{item.name}}
                 </el-breadcrumb-item>
               </el-breadcrumb>
@@ -84,12 +84,12 @@
       handleBread(data) {
       },
       getNavList() {
-        // 获取导航菜单的列表 以数组形式[[*name*, *url*, *icon*], [……]]
+        // 获取导航菜单的列表 以数组形式[[*name*, *path*, *icon*], [……]]
         let navList = [];
         for (let i = 0; i < config.NAV_LIST.length; i++) {
           navList.push({
             name: config.NAV_LIST[i].name,
-            url: config.NAV_LIST[i].url,
+            path: config.NAV_LIST[i].path,
             icon: config.NAV_LIST[i].icon})
         }
         this.navList = navList
@@ -102,7 +102,7 @@
         for (let i = 0; i < data.length; i++) {
           pathList.push({
             name: data[i].name,
-            url: data[i].url
+            path: data[i].path
           })
         }
         this.breadCrumbList = pathList
