@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-loading="loading">
     <el-card style="margin: 0 auto;max-width:1000px; background-color: rgb(251,251,251);">
       <div>
-        <p style="text-align: center;margin-top: 30px;font-size: 35px;font-family: 'PingFang SC',serif">人脸检测</p>
-        <p style="text-align: center; margin: 10px 0 35px 0;font-size: 17px;color: steelblue">「 发表时间：*time* 」 「 类别：*type* 」 </p>
+        <p style="text-align: center;margin-top: 30px;font-size: 35px;font-family: 'PingFang SC',serif" >{{article.title}}</p>
+        <p style="text-align: center; margin: 10px 0 35px 0;font-size: 17px;color: steelblue" >「 发表时间：{{article.time}} 」 「 类别：{{article.sort}} 」 </p>
       </div>
       <mavon-editor
         style="max-width: 800px;border: 0;margin: 0 auto;"
@@ -18,8 +18,8 @@
       ></mavon-editor>
       <el-card style="background-color: rgb(251,251,251);margin: 40px 40px;border-left: 4px solid steelblue;padding-left:40px;" shadow="never">
         <div>
-          <p class="explanation"><b>· 本文作者：</b> *across*</p>
-          <p class="explanation"><b>· 发表时间：</b> *across*</p>
+          <p class="explanation"><b>· 本文作者：</b> {{article.author}}</p>
+          <p class="explanation"><b>· 发表时间：</b> {{article.time}}</p>
           <p class="explanation"><b>· 版权声明：</b> 本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</p>
         </div>
       </el-card>
@@ -38,27 +38,37 @@
         name: "Article",
         created() {
           this.getArticle()
-          this.$emit('pageUrl', [
-            {
-              name: config.NAV_LIST[0].name,
-              path: config.NAV_LIST[0].path,
-            },
-            {
-              name: this.$route.params.id,
-              path: this.$route.path
-            }])
         },
         methods: {
           getArticle() {
-            const url = 'http://121.196.174.189:8080/static/resources/3.md'
-            axios.get(url).then((response) => {
-              this.htmlMD = response.data;
-            });
+            axios.post('/article/getById', this.$qs.stringify({
+              id: this.$route.params.id,
+            })).then((response) => {
+              this.article = response.data.data
+              let url = this.article.url
+              axios.get(url).then((response) => {
+                this.htmlMD = response.data;
+              });
+              this.$emit('pageUrl', [
+                {
+                  name: config.NAV_LIST[0].name,
+                  path: config.NAV_LIST[0].path,
+                },
+                {
+                  name: this.article.title,
+                  path: this.$route.path
+                }])
+              this.loading = false
+            })
           }
         },
         data() {
           return {
             htmlMD: null,
+            article: {
+              id: 1, title: "xxxx", time: "xxxx-xx-xx", sort: "xxxx", author: "across", text: "## "
+            },
+            loading: true
           }
         }
     }
