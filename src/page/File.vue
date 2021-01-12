@@ -1,6 +1,6 @@
 <template>
  <div>
-   <el-card style="min-width: 1000px;max-width: 1320px">
+   <el-card style="min-width: 910px;max-width: 1040px;margin: 0 auto">
      <div>
        <el-row>
          <el-col :span="3">
@@ -17,7 +17,7 @@
              :on-exceed="handleExceed"
              :file-list="fileList">
              <el-button type="primary">点击上传</el-button>
-             <div slot="tip" class="el-upload__tip">文件大小不超过50MB</div>
+             <div slot="tip" class="el-upload__tip">大小不超过50MB</div>
            </el-upload>
          </el-col>
          <el-col :span="2" :offset="1">
@@ -52,7 +52,7 @@
          fixed
          prop="filename"
          label="名称"
-         width="360"
+         width="250"
        >
          <template slot-scope="scope">
            <el-link @click="handleSelectionPath(scope)" :underline="false" target="_blank" class="buttonText">{{scope.row.filename}}</el-link>
@@ -61,22 +61,22 @@
        <el-table-column
          prop="uploadTime"
          label="上传时间"
-         width="270">
+         width="200">
        </el-table-column>
        <el-table-column
          prop="type"
          label="类型"
-         width="180">
+         width="160">
        </el-table-column>
        <el-table-column
          prop="size"
          label="大小"
-         width="110">
+         width="100">
        </el-table-column>
        <el-table-column
          prop="operation"
          label="操作"
-         width="300">
+         width="240">
          <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="fileDelete(scope)">删除</el-button>
            <el-button type="primary" v-if="showDownload(scope)" size="mini" @click="fileDownload(scope)">下载</el-button>

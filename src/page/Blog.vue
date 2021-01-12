@@ -10,7 +10,18 @@
             <div style="text-align: center; margin: 10px 0 35px 0">
               <span style="font-size: 12px;color: steelblue">「 发表时间：{{item.time}} 」 「 类别：{{item.sort}} 」 </span>
             </div>
-            <article v-html=item.text  style="padding-left:40px;color: #303133;font-size: 20px"></article>
+            <mavon-editor
+              style="max-width: 800px;border: 0;margin: 0 auto;"
+              :value="item.text"
+              :subfield = "false"
+              :defaultOpen = "'preview'"
+              :toolbarsFlag = "false"
+              :boxShadow = "false"
+              :editable="false"
+              :scrollStyle="true"
+              :ishljs = "true"
+            ></mavon-editor>
+<!--            <article v-html=  style="padding-left:40px;color: #303133;font-size: 20px"></article>-->
             <div style="text-align: center;margin-top: 30px;margin-bottom: 20px">
               <el-button type="primary" plain size="small" @click="articleDetail(item)">
                 阅读全文 >
@@ -83,10 +94,16 @@
       data() {
           return {
             textList:[
-              {id:1,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:"<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
-                  "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
-                  "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
-                  "<p>其它使用WIDER FACE数据集</p>\n"},
+              {id:1,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:"## 神经网络模型\n" +
+                  "### 初始化设定为Sequential模型 （顺序模型）\n" +
+                  "```python\n" +
+                  "def build_model(x_train, y_train, x_test, y_test, batch_size=32, epochs=1):\n" +
+                  "    model = Sequential()\n" +
+                  "```\n" +
+                  "\n" +
+                  "#### 训练集 x_train（输入） y_train(输出)\n" +
+                  "\n" +
+                  "#### 测试集 x_test.    y_test" },
               {id:2,title:"人脸检测",time:"2020-07-26",sort:"人工智能",author:"across",text:        "<p>多任务神经网络：分为P-Net、R-Net、和O-Net三层网络结构</p>\n" +
                   "<p>（参考了2016年中国科学院深圳研究院提出的网络模型进行模仿）</p>\n" +
                   "<p>ONet的人脸关键点训练数据和标注文件使用CelebA数据集</p>\n" +
@@ -108,6 +125,10 @@
 </script>
 
 <style scoped>
+
+  .v-show-content {
+    background-color: white ;
+  }
   #divider{
     margin: 8px 0;
     background: 0 0;
