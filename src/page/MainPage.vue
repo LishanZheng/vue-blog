@@ -2,12 +2,12 @@
   <div id="homeWrap">
     <el-container>
       <el-container>
-        <el-aside >
+        <el-aside style="width: 160px;">
           <el-menu
             @select="handleClick"
             active-text-color="#538CFF"
             text-color="#000000"
-            style="height: auto;width: 160px"
+            style="height: auto;"
             :default-active="this.$route.path"
             router>
             <el-menu-item v-for="(item, index) in menuMap" :key="index"
@@ -19,28 +19,28 @@
           </el-menu>
         </el-aside>
         <el-container>
-          <el-header>
-            <el-card style="height: 60px;position: absolute;left: 160px;width: 100vw;background-color: rgba(235,243,255,0.45);" shadow="never" >
+          <el-header style="padding: 0;margin-left: -1px">
+            <el-card style="height: 60px;padding-left:13px;background-color: rgba(235,243,255,0.45);" shadow="never" >
+              <el-breadcrumb separator=">" style="  width:90vh;font-size: 16px;">
+                <el-breadcrumb-item :to="{path: '/'}">主页</el-breadcrumb-item>
+                <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
+              </el-breadcrumb>
               <el-row>
-                <el-col :span="19" >
-                  <el-breadcrumb separator=">" style="margin-left: 12px;font-size: 16px;">
-                    <el-breadcrumb-item :to="{path: '/'}">主页</el-breadcrumb-item>
-                    <el-breadcrumb-item v-if="pickedIndex != null">{{ pickedIndex }}</el-breadcrumb-item>
-                  </el-breadcrumb>
+                <el-col >
                 </el-col>
-<!--                <el-col :span="1" >-->
-<!--                  <el-dropdown >-->
-<!--                    <el-avatar id="avatar" size="large" >admin</el-avatar>-->
-<!--                    <el-dropdown-menu slot="dropdown" split-button=true >-->
-<!--                      <el-dropdown-item icon="el-icon-circle-plus" @click.native="dialogVisible = true">登录-->
-<!--                      </el-dropdown-item>-->
-<!--                      <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>-->
-<!--                    </el-dropdown-menu>-->
-<!--                  </el-dropdown>-->
-<!--                </el-col>-->
+                <!--                <el-col :span="1" >-->
+                <!--                  <el-dropdown >-->
+                <!--                    <el-avatar id="avatar" size="large" >admin</el-avatar>-->
+                <!--                    <el-dropdown-menu slot="dropdown" split-button=true >-->
+                <!--                      <el-dropdown-item icon="el-icon-circle-plus" @click.native="dialogVisible = true">登录-->
+                <!--                      </el-dropdown-item>-->
+                <!--                      <el-dropdown-item icon="el-icon-circle-plus">退出</el-dropdown-item>-->
+                <!--                    </el-dropdown-menu>-->
+                <!--                  </el-dropdown>-->
+                <!--                </el-col>-->
               </el-row>
             </el-card>
-            <el-card shadow="never" style="margin-top: 60px;margin-left: -160px;width: 100vw;background-color: rgba(241,247,254,0.2);" >
+            <el-card shadow="never" style="min-width:1000px;width:86vw;background-color: rgba(241,247,254,0.2);" >
               <router-view @pageUrl="redirectMainPage"></router-view>
             </el-card>
           </el-header>
@@ -112,7 +112,7 @@
   #footer {
     text-align: center;
     font-size: 10px;
-    background-color: cornsilk;
+    background-color: rgba(241,247,254,0.8);
     position: fixed;
     bottom: 0;
     width: 100%;

@@ -24,6 +24,11 @@ export default new Router({
           component: Blog
         },
         {
+          path: '/article/:id',
+          name: 'Article',
+          component: Article
+        },
+        {
           path: '/file',
           name: 'File',
           component: File
@@ -35,11 +40,5 @@ export default new Router({
         }
       ]
     },
-    {
-      path: '/article/:id',
-      name: 'Article',
-      component: Article
-    }
-
   ]
 })

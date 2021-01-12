@@ -1,11 +1,11 @@
 <template>
-  <div style="margin-left: 10px;">
-    <el-row :gutter="2">
+  <div>
+    <el-row style="min-width: 1000px">
       <el-col :span="14" :offset="2">
-        <div >
+        <div>
           <el-card v-for="item in textList" v-bind:key="item.id" style="min-width: 430px;margin-bottom: 25px;padding-bottom: 20px">
             <div style="text-align: center;margin-top: 30px;">
-              <router-link :to="'/article/'+item.id" id="title">{{item.title}}</router-link>
+              <router-link :to="'/article/'+item.id" class="myTitle">{{item.title}}</router-link>
             </div>
             <div style="text-align: center; margin: 10px 0 35px 0">
               <span style="font-size: 12px;color: steelblue">「 发表时间：{{item.time}} 」 「 类别：{{item.sort}} 」 </span>
@@ -27,23 +27,23 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="5" :offset="1"  style="width: 260px;overflow: hidden">
+      <el-col :span="5" :offset="1"  style="max-width: 260px;" :show-overflow-tooltip="true">
         <el-card style="background-color: rgba(195,220,255,0.35);border: 1px solid #72767b">
           <div style="text-align: center;">
             <el-avatar style="height: 100px;width: 100px;background-color: white;border: 3px solid #82848a"
                        src="http://121.196.174.189:8080/static/resources/7.png">
             </el-avatar>
-            <h3 style="font-family: '华文细黑', monospace;margin: 10px 0 10px 0;font-size: 20px">Across</h3>
+            <h3 style="font-family: '华文细黑', monospace;margin: 10px 0 10px 0;font-size: 20px">
+              <a style="color: #ff4d51">A</a>cross
+            </h3>
             <span style="font-family: '微软雅黑', serif;font-size: 13px;">神秘的帽子君，果然什么介绍也没有. 但还是留下了一些奇怪的地址。</span>
             <div style="margin-top: 30px">
-              <div><a href="https://github.com/LishanZheng">Github</a></div>
-<!--              <a href="https://blog.xuewen.me/">@xuewen</a>-->
-            </div>
+
             <div>
-<!--              1|2|3-->
+              <a href="https://github.com/LishanZheng" class="link">Github</a>
             </div>
-
-
+              <a href="https://blog.xuewen.me/" class="link">@搞学问</a>
+            </div>
           </div>
         </el-card>
       </el-col>
@@ -132,10 +132,24 @@
     background-color: black;
     border-color: #e8eaec;
   }
-  #title {
+  .myTitle {
     font-size: 32px;
     color: black;
     font-family:"华文细黑",monospace;
     border-bottom:2px solid #f5f7fa;
+    width: 0;
+    height: 0;
+  }
+  .myTitle:hover {
+    border-bottom-color: #606266;
+    color: #606266;
+  }
+  .link {
+    font-family: '华文细黑',cursive;
+    color: #72767b;
+    font-size: 14px;
+  }
+  .link:hover {
+    color: black;
   }
 </style>
