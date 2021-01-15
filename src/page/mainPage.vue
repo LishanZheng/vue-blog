@@ -86,11 +86,11 @@
       getNavList() {
         // 获取导航菜单的列表 以数组形式[[*name*, *path*, *icon*], [……]]
         let navList = [];
-        for (let i = 0; i < config.NAV_LIST.length; i++) {
+        for (let i = 0; i < config.nav_list.length; i++) {
           navList.push({
-            name: config.NAV_LIST[i].name,
-            path: config.NAV_LIST[i].path,
-            icon: config.NAV_LIST[i].icon})
+            name: config.nav_list[i].name,
+            path: config.nav_list[i].path,
+            icon: config.nav_list[i].icon})
         }
         this.navList = navList
       },

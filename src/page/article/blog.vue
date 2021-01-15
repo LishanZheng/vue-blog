@@ -55,11 +55,11 @@
       created() {
         this.$emit('pageUrl', [
           {
-            name: config.NAV_LIST[0].name,
-            path: config.NAV_LIST[0].path,
+            name: config.nav_list[0].name,
+            path: config.nav_list[0].path,
           }])
         this.getArticleList()
-        this.limit = config.ARTICLE_LIMIT
+        this.limit = config.article_settings.limit
       },
       methods: {
         currentChange(currentPage) {
@@ -69,20 +69,20 @@
         getArticleList() {
           axios.post('/article/get', this.$qs.stringify({
             currentPage: this.currentPage,
-            limit: config.ARTICLE_LIMIT,
-            state: config.ARTICLE_STATE
+            limit: config.article_settings.limit,
+            state: config.article_settings.state
           })).then((response) => {
             this.articleList = response.data.data.articleList
             this.totalPage = response.data.data.totalPage
           })
         },
         articleDetail(data) {
-          let newPath = config.NAV_LIST[0].children[0].path + '/' + data.id
+          let newPath = config.nav_list[0].children[0].path + '/' + data.id
           this.$router.push ({ path: newPath });
           this.$emit('pageUrl', [
             {
-              name: config.NAV_LIST[0].name,
-              path: config.NAV_LIST[0].path
+              name: config.nav_list[0].name,
+              path: config.nav_list[0].path
             },
             {
               name: data.title,

@@ -47,8 +47,8 @@
               });
               this.$emit('pageUrl', [
                 {
-                  name: config.NAV_LIST[0].name,
-                  path: config.NAV_LIST[0].path,
+                  name: config.nav_list[0].name,
+                  path: config.nav_list[0].path,
                 },
                 {
                   name: this.article.title,

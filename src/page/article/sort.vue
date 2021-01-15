@@ -28,8 +28,8 @@
         created() {
           this.$emit('pageUrl', [
             {
-              name: config.NAV_LIST[1].name,
-              path: config.NAV_LIST[1].path
+              name: config.nav_list[1].name,
+              path: config.nav_list[1].path
             }])
         },
         data() {
