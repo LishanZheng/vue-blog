@@ -98,8 +98,8 @@
         this.getFileList(this.path)
         this.$emit('pageUrl', [
           {
-            name: config.NAV_LIST[1].name,
-            path: config.NAV_LIST[1].path
+            name: config.NAV_LIST[2].name,
+            path: config.NAV_LIST[2].path
           }])
       },
       data() {
@@ -298,12 +298,18 @@
           this.selectionList = selection
         },
         getFileList(path) {
-          let that = this
-          axios.post('/file/get', that.$qs.stringify({
+          axios.post('/file/get', this.$qs.stringify({
             path: path
           })).then((response) => {
             if(response.data.code === this.RESPONCE_CODE.SUCCESS)
-            that.tableData = response.data.data
+            {
+              let list = response.data.data
+              for (let i = 0; i < list.length; i++) {
+                list[i].size = (list[i].size / 1024.0).toFixed(2) + "KB";
+              }
+              this.tableData = list
+            }
+
           })
         },
         handlePreview(file) {

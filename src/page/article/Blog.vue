@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import config from "../constant/PageConfig";
+  import config from "../../constant/PageConfig";
   import axios from "axios";
 
   export default {
@@ -89,8 +89,8 @@
         getArticleList() {
           axios.post('/article/get', this.$qs.stringify({
             currentPage: this.currentPage,
-            limit: 5,
-            state: 1
+            limit: config.ARTICLE_LIMIT,
+            state: config.ARTICLE_STATE
           })).then((response) => {
             this.articleList = response.data.data.articleList
             this.totalPage = response.data.data.totalPage

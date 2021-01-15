@@ -16,23 +16,19 @@
         :scrollStyle="true"
         :ishljs = "true"
       ></mavon-editor>
-      <el-card style="background-color: rgb(251,251,251);margin: 40px 40px;border-left: 4px solid steelblue;padding-left:40px;" shadow="never">
-        <div>
+        <div style="background-color: rgb(251,251,251);margin: 40px 0 40px 80px;border-left: 3px solid steelblue;padding-left: 20px;">
           <p class="explanation"><b>· 本文作者：</b> {{article.author}}</p>
           <p class="explanation"><b>· 发表时间：</b> {{article.time}}</p>
           <p class="explanation"><b>· 版权声明：</b> 本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</p>
         </div>
-      </el-card>
-      <el-card style="background-color: rgb(251,251,251);">
         *留言*
-      </el-card>
     </el-card>
   </div>
 </template>
 
 <script>
   import axios from "axios";
-  import config from "../constant/PageConfig";
+  import config from "../../constant/PageConfig";
 
   export default {
         name: "Article",
