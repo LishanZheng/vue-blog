@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import File from "../page/File";
-import MainPage from "../page/MainPage";
-import Blog from "../page/article/Blog";
-import Login from "../page/Login";
+import File from "../page/file";
+import MainPage from "../page/mainPage";
+import Blog from "../page/article/blog";
+import Login from "../page/login";
 import ResponseCode from "../constant/ResponseCode"
 import blog from "./blog";
 

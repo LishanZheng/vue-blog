@@ -61,7 +61,7 @@
 
 <script>
 
-  import Login from "./Login";
+  import Login from "./login";
   import config from "../constant/PageConfig";
 
   export default {
@@ -117,8 +117,6 @@
     left: 0;
     height: 100%;
   }
-
-
   #footer {
     text-align: center;
     font-size: 10px;
@@ -128,9 +126,9 @@
     width: 100%;
   }
 
-  #avatar {
-    position: relative;
-    bottom: 10px;
-  }
+  /*#avatar {*/
+  /*  position: relative;*/
+  /*  bottom: 10px;*/
+  /*}*/
 
 </style>

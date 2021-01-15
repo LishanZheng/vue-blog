@@ -1,6 +1,6 @@
-import Blog from "../page/article/Blog";
-import Article from "../page/article/Article";
-import Sort from "../page/article/Sort";
+import Blog from "../page/article/blog";
+import Article from "../page/article/article";
+import Sort from "../page/article/sort";
 
 export default [
   {

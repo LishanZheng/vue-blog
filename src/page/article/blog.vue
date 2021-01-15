@@ -57,7 +57,7 @@
             <div>
               <a href="https://github.com/LishanZheng" class="link">Github</a>
             </div>
-              <a href="https://blog.xuewen.me/" class="link">@搞学问</a>
+              <a href="https://blog.xuewen.me/blog.vue" class="link">@搞学问</a>
             </div>
           </div>
         </el-card>
