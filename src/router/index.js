@@ -4,7 +4,7 @@ import File from "../page/file";
 import MainPage from "../page/mainPage";
 import Blog from "../page/article/blog";
 import Login from "../page/login";
-import ResponseCode from "../constant/ResponseCode"
+import ResponseCode from "../constant/responseCode"
 import blog from "./blog";
 
 Vue.use(Router)

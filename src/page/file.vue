@@ -89,8 +89,8 @@
 
 <script>
     import axios from "axios";
-    import ResponseCode from "../constant/ResponseCode";
-    import config from "../constant/PageConfig";
+    import ResponseCode from "../constant/responseCode";
+    import config from "../constant/config";
 
     export default {
       name: "File",

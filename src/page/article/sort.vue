@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import config from "../../constant/PageConfig";
+  import config from "../../constant/config";
 
   export default {
         name: "Sort",

@@ -62,7 +62,7 @@
 <script>
 
   import Login from "./login";
-  import config from "../constant/PageConfig";
+  import config from "../constant/config";
 
   export default {
     name: 'MainPage',

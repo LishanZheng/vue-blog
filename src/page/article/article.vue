@@ -28,7 +28,7 @@
 
 <script>
   import axios from "axios";
-  import config from "../../constant/PageConfig";
+  import config from "../../constant/config";
 
   export default {
         name: "Article",
@@ -70,7 +70,7 @@
     }
 </script>
 
-<style scoped>
+<style>
   .explanation {
     font-size: 16px;
     margin: 0;
