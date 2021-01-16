@@ -1,7 +1,7 @@
 <template>
  <el-card class="file_card">
    <el-row>
-     <el-col :span="3"><el-button type="primary" class="mkdir_button" @click="fileMkdir">新建文件夹</el-button></el-col>
+     <el-col :span="3"><el-button class="mkdir_button" @click="fileMkdir">新建文件夹</el-button></el-col>
      <el-col :span="3">
        <el-upload
          action="action"
@@ -275,9 +275,11 @@
   }
   .mkdir_button {
     background-color: #42b983;
+    color: white;
   }
   .mkdir_button:hover, .mkdir_button:focus{
     background-color: rgba(101,182,135, 0.96);
+    color: white;
   }
 
   .breadcrumb {
